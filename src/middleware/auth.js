@@ -4,6 +4,8 @@ require('dotenv').config
 const authenticate = (req,res, next) => {
     try{
 
+        if(!req.headers.authorization) {return res.status(400).send({status: false, message: "Header is not present"})}
+        
         let token = req.headers.authorization.split(" ")[1]
         if(!token) {
             return res.status(400).send({status: false, message: "Token is not present" })
